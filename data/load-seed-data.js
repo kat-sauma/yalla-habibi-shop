@@ -28,10 +28,10 @@ async function run() {
     await Promise.all(
       clothes.map(item => {
         return client.query(`
-                    INSERT INTO clothes (id, name, img_url, description, category, size, price, owner_id)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+                    INSERT INTO clothes (name, img_url, description, category, size, price, owner_id)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7);
                 `,
-          [item.id, item.name, item.img_url, item.description, item.category, item.size, item.price, user.id]);
+          [item.name, item.img_url, item.description, item.category, item.size, item.price, user.id]);
       })
     );
 

@@ -20,7 +20,10 @@ async function run() {
                 CREATE TABLE clothes (
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(512) NOT NULL,
-                    img_url VARCHAR(512) NOT NULL, description VARCHAR(512) NOT NULL, category VARCHAR(512) NOT NULL, size VARCHAR(512) NOT NULL,
+                    img_url VARCHAR(512) NOT NULL, 
+                    description VARCHAR(512) NOT NULL, 
+                    category VARCHAR(512) NOT NULL, 
+                    size VARCHAR(512) NOT NULL,
                     price INTEGER NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)
             );

@@ -118,7 +118,7 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
     });
 
-    test('creates a new candy bar and that new candy bar is in our candy list', async () => {
+    test('creates a new clothing item  in our clthing list', async () => {
 
       const addClothing = {
         id: 6,
@@ -154,5 +154,36 @@ describe('app routes', () => {
       expect(purpleEmbroideredTop).toEqual(expectedClothing);
     });
 
+    test('updates clothes', async () => {
+      const newClothes = {
+        id: 6,
+        name: 'Turquoise Embroidered Button-Down',
+        img_url: '../assets/tops/turpoise-embroidered.jpg',
+        description: 'Vintage button-down with short sleeves and embroidered details.',
+        category: 'vintage-tops',
+        size: 'medium',
+        price: 55
+      };
+
+      const expectedClothes = {
+        ...newClothes,
+        owner_id: 1,
+        id: 1
+      };
+
+      await fakeRequest(app)
+        .put('/clothes/1')
+        .send(newClothes)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const updatedClothes = await fakeRequest(app)
+        .get('/clothes/1')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      // check to see that it matches our expectations
+      expect(updatedClothes.body).toEqual(expectedClothes);
+    });
   });
 });
