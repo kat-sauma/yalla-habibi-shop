@@ -185,5 +185,32 @@ describe('app routes', () => {
       // check to see that it matches our expectations
       expect(updatedClothes.body).toEqual(expectedClothes);
     });
+
+    test('deletes a single item with the matching id', async () => {
+      const expectation = {
+        'id': 2,
+        'name': 'Denim Vest',
+        'img_url': '../assets/tops/denim-vest-velvet-collar.jpg',
+        'description': 'denim vest with a black suede collar',
+        'category': 'vintage-tops',
+        'owner_id': 1,
+        'size': 'medium',
+        'price': 45
+      };
+
+      const data = await fakeRequest(app)
+        .delete('/clothes/2')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+
+      const nothing = await fakeRequest(app)
+        .get('/clothes/2')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(nothing.body).toEqual('');
+    });
   });
 });
