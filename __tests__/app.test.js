@@ -117,15 +117,42 @@ describe('app routes', () => {
 
       expect(data.body).toEqual(expectation);
     });
+
+    test('creates a new candy bar and that new candy bar is in our candy list', async () => {
+
+      const addClothing = {
+        id: 6,
+        name: 'Purple Embroidered Button-Down',
+        img_url: '../assets/tops/purple-embroidered.jpg',
+        description: 'Vintage button-down with short sleeves and embroidered details.',
+        category: 'vintage-tops',
+        size: 'medium',
+        price: 45
+      };
+
+      const expectedClothing = {
+        ...addClothing,
+        id: 6,
+        owner_id: 1,
+      };
+
+      const data = await fakeRequest(app)
+        .post('/clothes')
+        .send(addClothing)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectedClothing);
+
+      const allClothes = await fakeRequest(app)
+        .get('/clothes')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      const purpleEmbroideredTop = allClothes.body.find(item => item.name === 'Purple Embroidered Button-Down');
+
+      expect(purpleEmbroideredTop).toEqual(expectedClothing);
+    });
+
   });
 });
-
-
-
-//   const nothing = await fakeRequest(app)
-//     .get('/clothes/100')
-//     .expect('Content-Type', /json/)
-//     .expect(200);
-
-//   expect(nothing.body).toEqual('');
-// });
