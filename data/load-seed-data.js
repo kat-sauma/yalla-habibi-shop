@@ -5,6 +5,7 @@ const clothes = require('./clothes.js');
 const usersData = require('./users.js');
 const categoriesData = require('./categories.js');
 const { getEmoji } = require('../lib/emoji.js');
+const { getCategoryId } = require('./dataUtils.js');
 
 run();
 
@@ -24,7 +25,7 @@ async function run() {
       })
     );
 
-    const categories = await Promise.all(
+    const responses = await Promise.all(
       categoriesData.map(category => {
         return client.query(`
                       INSERT INTO categories (name)
@@ -37,14 +38,25 @@ async function run() {
 
     const user = users[0].rows[0];
 
+    const categories = responses.map(({
+      rows
+    }) => rows[0]);
+
     await Promise.all(
       clothes.map(item => {
-        const categoryID = getCategoryID(clothes, categories);
+        const categoryId = getCategoryId(item, categories);
         return client.query(`
                     INSERT INTO clothes (clothing_id, name, img_url, description, category_id, size, price, owner_id)
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
                 `,
-          [item.clothing_id, item.name, item.img_url, item.description, categoryID, item.size, item.price, user.id]);
+          [item.clothing_id,
+          item.name,
+          item.img_url,
+          item.description,
+            categoryId,
+          item.size,
+          item.price,
+          user.id]);
       })
     );
 

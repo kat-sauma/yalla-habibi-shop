@@ -5,7 +5,7 @@ module.exports = [
         name: 'Floral Silk Top',
         img_url: '../assets/tops/blue-silk-top.jpg',
         description: 'blue silk top with a pan collar',
-        category: 'vintage-tops',
+        category_id: 1,
         size: 'Large',
         price: 60
     },

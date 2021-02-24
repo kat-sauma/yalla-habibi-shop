@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 require('dotenv').config();
 
 const { execSync } = require('child_process');
@@ -10,11 +11,11 @@ const { getCategoryId } = require('../data/dataUtils.js');
 describe('data utils', () => {
 
 
-    test('getCategoryID should take in a n item and all categories listed adn return the necessary id', async () => {
-        const expectation = 7
+    test('getCategoryId should take in an item and all categories listed and return the necessary id', async () => {
+        const expectation = 7;
         const item = {
             name: 'yellow blouse',
-            category: 'tops'
+            category_id: 'tops'
         }
         const categories = [
             {
@@ -29,9 +30,9 @@ describe('data utils', () => {
                 id: 4,
                 name: 'vintage-tops'
             }
-        ]
+        ];
 
-        const actual = getCategoryId(clothes, categories);
+        const actual = getCategoryId(item, categories);
 
         expect(actual).toEqual(expectation);
     });
