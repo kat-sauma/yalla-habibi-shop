@@ -27,6 +27,10 @@ async function run() {
                     price INTEGER NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)
             );
+            CREATE TABLE categories (
+              id SERIAL PRIMARY KEY,
+              name VARCHAR(512) NOT NULL
+          );  
         `);
 
     console.log('create tables complete', getEmoji(), getEmoji(), getEmoji());

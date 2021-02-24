@@ -35,7 +35,7 @@ describe('app routes', () => {
 
       const expectation = [
         {
-          id: 1,
+          clothing_id: 1,
           name: 'Floral Silk Top',
           img_url: '../assets/tops/blue-silk-top.jpg',
           description: 'blue silk top with a pan collar',
@@ -45,7 +45,7 @@ describe('app routes', () => {
           price: 60
         },
         {
-          id: 2,
+          clothing_id: 2,
           name: 'Denim Vest',
           img_url: '../assets/tops/denim-vest-velvet-collar.jpg',
           description: 'denim vest with a black suede collar',
@@ -55,7 +55,7 @@ describe('app routes', () => {
           price: 45
         },
         {
-          id: 3,
+          clothing_id: 3,
           name: 'Burberry Ruffle Collared Tee',
           img_url: '../assets/tops/burberry-black-top.jpg',
           description: 'black cotton polo with a ruffled collar',
@@ -66,7 +66,7 @@ describe('app routes', () => {
         },
 
         {
-          id: 4,
+          clothing_id: 4,
           name: 'Beige Suede Button Down',
           img_url: '../assets/tops/suede-button-down-top.jpg',
           description: 'beige, patterned, suede button down tee shirt with structure',
@@ -77,7 +77,7 @@ describe('app routes', () => {
         },
 
         {
-          id: 5,
+          clothing_id: 5,
           name: 'Purple Stripe Tank',
           img_url: '../assets/tops/purple-stripe-tank.jpg',
           description: 'lavender and mint striped spaghetti strap tank with diamond point hem',
@@ -99,7 +99,7 @@ describe('app routes', () => {
     test('returns an item of clothing with its matching id', async () => {
 
       const expectation = {
-        id: 3,
+        clothing_id: 3,
         name: 'Burberry Ruffle Collared Tee',
         img_url: '../assets/tops/burberry-black-top.jpg',
         description: 'black cotton polo with a ruffled collar',
@@ -121,7 +121,7 @@ describe('app routes', () => {
     test('creates a new clothing item  in our clthing list', async () => {
 
       const addClothing = {
-        id: 6,
+        clothing_id: 6,
         name: 'Purple Embroidered Button-Down',
         img_url: '../assets/tops/purple-embroidered.jpg',
         description: 'Vintage button-down with short sleeves and embroidered details.',
@@ -156,7 +156,7 @@ describe('app routes', () => {
 
     test('updates clothes', async () => {
       const newClothes = {
-        id: 6,
+        clothing_id: 6,
         name: 'Turquoise Embroidered Button-Down',
         img_url: '../assets/tops/turpoise-embroidered.jpg',
         description: 'Vintage button-down with short sleeves and embroidered details.',
@@ -188,7 +188,7 @@ describe('app routes', () => {
 
     test('deletes a single item with the matching id', async () => {
       const expectation = {
-        'id': 2,
+        'clothing_id': 2,
         'name': 'Denim Vest',
         'img_url': '../assets/tops/denim-vest-velvet-collar.jpg',
         'description': 'denim vest with a black suede collar',

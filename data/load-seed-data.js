@@ -3,6 +3,7 @@ const client = require('../lib/client');
 // import our seed data:
 const clothes = require('./clothes.js');
 const usersData = require('./users.js');
+const categoriesData = require('./categories.js');
 const { getEmoji } = require('../lib/emoji.js');
 
 run();
@@ -23,15 +24,27 @@ async function run() {
       })
     );
 
+    const categories = await Promise.all(
+      categoriesData.map(category => {
+        return client.query(`
+                      INSERT INTO categories (name)
+                      VALUES ($1)
+                      RETURNING *;
+                  `,
+          [category.name]);
+      })
+    );
+
     const user = users[0].rows[0];
 
     await Promise.all(
       clothes.map(item => {
+        const categoryID = getCategoryID(clothes, categories);
         return client.query(`
-                    INSERT INTO clothes (name, img_url, description, category, size, price, owner_id)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7);
+                    INSERT INTO clothes (clothing_id, name, img_url, description, category_id, size, price, owner_id)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
                 `,
-          [item.name, item.img_url, item.description, item.category, item.size, item.price, user.id]);
+          [item.clothing_id, item.name, item.img_url, item.description, categoryID, item.size, item.price, user.id]);
       })
     );
 
