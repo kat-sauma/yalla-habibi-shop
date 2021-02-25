@@ -35,63 +35,66 @@ describe('app routes', () => {
 
       const expectation = [
         {
-          id: 1,
-          clothing_id: 1,
-          name: 'Floral Silk Top',
-          img_url: '../assets/tops/blue-silk-top.jpg',
-          description: 'blue silk top with a pan collar',
-          category_id: 2,
-          owner_id: 1,
-          size: 'Large',
-          price: 60
+          'id': 1,
+          'clothing_id': 1,
+          'name': 'Floral Silk Top',
+          'img_url': '../assets/tops/blue-silk-top.jpg',
+          'description': 'blue silk top with a pan collar',
+          'category_id': 2,
+          'size': 'Large',
+          'price': 60,
+          'owner_id': 1,
+          'category': 'silk'
         },
         {
-          id: 2,
-          clothing_id: 2,
-          name: 'Denim Vest',
-          img_url: '../assets/tops/denim-vest-velvet-collar.jpg',
-          description: 'denim vest with a black suede collar',
-          category_id: 1,
-          owner_id: 1,
-          size: 'medium',
-          price: 45
+          'id': 2,
+          'clothing_id': 2,
+          'name': 'Denim Vest',
+          'img_url': '../assets/tops/denim-vest-velvet-collar.jpg',
+          'description': 'denim vest with a black suede collar',
+          'category_id': 1,
+          'size': 'medium',
+          'price': 45,
+          'owner_id': 1,
+          'category': 'vintage-tops'
         },
         {
-          id: 3,
-          clothing_id: 3,
-          name: 'Burberry Ruffle Collared Tee',
-          img_url: '../assets/tops/burberry-black-top.jpg',
-          description: 'black cotton polo with a ruffled collar',
-          category_id: 3,
-          owner_id: 1,
-          size: 'small',
-          price: 60
+          'id': 3,
+          'clothing_id': 3,
+          'name': 'Burberry Ruffle Collared Tee',
+          'img_url': '../assets/tops/burberry-black-top.jpg',
+          'description': 'black cotton polo with a ruffled collar',
+          'category_id': 3,
+          'size': 'small',
+          'price': 60,
+          'owner_id': 1,
+          'category': 'tops'
         },
-
         {
-          id: 4,
-          clothing_id: 4,
-          name: 'Beige Suede Button Down',
-          img_url: '../assets/tops/suede-button-down-top.jpg',
-          description: 'beige, patterned, suede button down tee shirt with structure',
-          category_id: 3,
-          owner_id: 1,
-          size: 'small',
-          price: 30
+          'id': 4,
+          'clothing_id': 4,
+          'name': 'Beige Suede Button Down',
+          'img_url': '../assets/tops/suede-button-down-top.jpg',
+          'description': 'beige, patterned, suede button down tee shirt with structure',
+          'category_id': 3,
+          'size': 'small',
+          'price': 30,
+          'owner_id': 1,
+          'category': 'tops'
         },
-
         {
-          id: 5,
-          clothing_id: 5,
-          name: 'Purple Stripe Tank',
-          img_url: '../assets/tops/purple-stripe-tank.jpg',
-          description: 'lavender and mint striped spaghetti strap tank with diamond point hem',
-          category_id: 1,
-          owner_id: 1,
-          size: 'medium',
-          price: 20
+          'id': 5,
+          'clothing_id': 5,
+          'name': 'Purple Stripe Tank',
+          'img_url': '../assets/tops/purple-stripe-tank.jpg',
+          'description': 'lavender and mint striped spaghetti strap tank with diamond point hem',
+          'category_id': 1,
+          'size': 'medium',
+          'price': 20,
+          'owner_id': 1,
+          'category': 'vintage-tops'
         }
-      ]
+      ];
 
       const data = await fakeRequest(app)
         .get('/clothes')
@@ -104,15 +107,16 @@ describe('app routes', () => {
     test('returns an item of clothing with its matching clothing_id', async () => {
 
       const expectation = {
-        id: 3,
-        clothing_id: 3,
-        name: 'Burberry Ruffle Collared Tee',
-        img_url: '../assets/tops/burberry-black-top.jpg',
-        description: 'black cotton polo with a ruffled collar',
-        category_id: 3,
-        size: 'small',
-        price: 60,
-        owner_id: 1
+        'id': 3,
+        'clothing_id': 3,
+        'name': 'Burberry Ruffle Collared Tee',
+        'img_url': '../assets/tops/burberry-black-top.jpg',
+        'description': 'black cotton polo with a ruffled collar',
+        'category_id': 3,
+        'size': 'small',
+        'price': 60,
+        'owner_id': 1,
+        'category': 'tops'
       };
 
       const data = await fakeRequest(app)
@@ -142,6 +146,11 @@ describe('app routes', () => {
         owner_id: 1,
       };
 
+      const foundClothing = {
+        ...expectedClothing,
+        category: 'vintage-tops'
+      };
+
       const data = await fakeRequest(app)
         .post('/clothes')
         .send(addClothing)
@@ -157,7 +166,7 @@ describe('app routes', () => {
 
       const purpleEmbroideredTop = allClothes.body.find(item => item.name === 'Purple Embroidered Button-Down');
 
-      expect(purpleEmbroideredTop).toEqual(expectedClothing);
+      expect(purpleEmbroideredTop).toEqual(foundClothing);
     });
 
     test('updates clothes', async () => {
@@ -174,7 +183,8 @@ describe('app routes', () => {
       const expectedClothes = {
         ...newClothes,
         owner_id: 1,
-        id: 1
+        id: 1,
+        category: 'vintage-tops',
       };
 
       await fakeRequest(app)
@@ -202,7 +212,7 @@ describe('app routes', () => {
         'category_id': 1,
         'owner_id': 1,
         'size': 'medium',
-        'price': 45
+        'price': 45,
       };
 
       const data = await fakeRequest(app)

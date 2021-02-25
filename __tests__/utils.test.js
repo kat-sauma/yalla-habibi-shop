@@ -11,7 +11,7 @@ const { getCategoryId } = require('../data/dataUtils.js');
 describe('data utils', () => {
 
 
-    test('getCategoryId should take in an item and all categories listed and return the necessary id', async () => {
+    test.skip('getCategoryId should take in an item and all categories listed and return the necessary id', async () => {
         const expectation = 7;
         const item = {
             name: 'yellow blouse',
