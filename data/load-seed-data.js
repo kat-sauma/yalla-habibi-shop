@@ -38,9 +38,7 @@ async function run() {
 
     const user = users[0].rows[0];
 
-    const categories = responses.map(({
-      rows
-    }) => rows[0]);
+    const categories = responses.map(({ rows }) => rows[0]);
 
     await Promise.all(
       clothes.map(item => {
@@ -49,14 +47,16 @@ async function run() {
                     INSERT INTO clothes (clothing_id, name, img_url, description, category_id, size, price, owner_id)
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
                 `,
-          [item.clothing_id,
-          item.name,
-          item.img_url,
-          item.description,
+          [
+            item.clothing_id,
+            item.name,
+            item.img_url,
+            item.description,
             categoryId,
-          item.size,
-          item.price,
-          user.id]);
+            item.size,
+            item.price,
+            user.id
+          ]);
       })
     );
 
