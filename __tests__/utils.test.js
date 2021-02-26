@@ -16,7 +16,7 @@ describe('data utils', () => {
         const item = {
             name: 'yellow blouse',
             category_id: 'silk'
-        }
+        };
         const categories = [
             {
                 id: 7,
@@ -37,3 +37,5 @@ describe('data utils', () => {
         expect(actual).toEqual(expectation);
     });
 });
+
+
