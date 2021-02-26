@@ -11,24 +11,24 @@ const { getCategoryId } = require('../data/dataUtils.js');
 describe('data utils', () => {
 
 
-    test.skip('getCategoryId should take in an item and all categories listed and return the necessary id', async () => {
+    test('getCategoryId should take in an item and all categories listed and return the necessary id', async () => {
         const expectation = 7;
         const item = {
             name: 'yellow blouse',
-            category_id: 'tops'
+            category_id: 'silk'
         }
         const categories = [
             {
-                id: 6,
-                name: 'silk'
+                id: 7,
+                category_id: 'silk'
             },
             {
-                id: 7,
-                name: 'tops'
+                id: 6,
+                category_id: 'tops'
             },
             {
                 id: 4,
-                name: 'vintage-tops'
+                category_id: 'vintage-tops'
             }
         ];
 
