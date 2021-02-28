@@ -131,13 +131,12 @@ describe('app routes', () => {
     test('creates a new clothing item in our clothing list', async () => {
 
       const addClothing = {
-        clothing_id: 6,
         name: 'Purple Embroidered Button-Down',
-        img_url: '../assets/tops/purple-embroidered.jpg',
         description: 'Vintage button-down with short sleeves and embroidered details.',
-        category_id: 1,
         size: 'medium',
-        price: 45
+        price: 45,
+        category: 'silk',
+        category_id: 1
       };
 
       const expectedClothing = {
