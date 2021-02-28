@@ -1,8 +1,11 @@
+/* eslint-disable indent */
 const client = require('../lib/client');
 // import our seed data:
-const animals = require('./animals.js');
+const clothes = require('./clothes.js');
 const usersData = require('./users.js');
+const categoriesData = require('./categories.js');
 const { getEmoji } = require('../lib/emoji.js');
+const { getCategoryId } = require('./dataUtils.js');
 
 run();
 
@@ -18,30 +21,53 @@ async function run() {
                       VALUES ($1, $2)
                       RETURNING *;
                   `,
-        [user.email, user.hash]);
+          [user.email, user.hash]);
       })
     );
-      
+
+    const responses = await Promise.all(
+      categoriesData.map(category => {
+        return client.query(`
+                      INSERT INTO categories (name)
+                      VALUES ($1)
+                      RETURNING *;
+                  `,
+          [category.name]);
+      })
+    );
+
     const user = users[0].rows[0];
 
+    const categories = responses.map(({ rows }) => rows[0]);
+
     await Promise.all(
-      animals.map(animal => {
+      clothes.map(item => {
+        const categoryId = getCategoryId(item, categories);
         return client.query(`
-                    INSERT INTO animals (name, cool_factor, owner_id)
-                    VALUES ($1, $2, $3);
+                    INSERT INTO clothes (clothing_id, name, img_url, description, category_id, size, price, owner_id)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
                 `,
-        [animal.name, animal.cool_factor, user.id]);
+          [
+            item.clothing_id,
+            item.name,
+            item.img_url,
+            item.description,
+            categoryId,
+            item.size,
+            item.price,
+            user.id
+          ]);
       })
     );
-    
+
 
     console.log('seed data load complete', getEmoji(), getEmoji(), getEmoji());
   }
-  catch(err) {
+  catch (err) {
     console.log(err);
   }
   finally {
     client.end();
   }
-    
+
 }
